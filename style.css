@@ -1,0 +1,321 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+body {
+    font-family: Arial, sans-serif;
+    background: black;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15), transparent),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15), transparent);
+    animation: floaty 15s ease-in-out infinite;
+}
+
+@keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+}
+
+.ligne-scan {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(transparent, rgba(99, 102, 241, 0.5), transparent);
+    animation: scan 8s linear infinite;
+    pointer-events: none;
+    z-index: 999;
+}
+
+@keyframes scan {
+    from { top: 0; }
+    to { top: 100%; }
+}
+
+.calculatrice {
+    background: rgba(20, 20, 30, 0.8);
+    border-radius: 30px;
+    padding: 30px;
+    width: 100%;
+    max-width: 420px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9),
+                0 0 50px rgba(99, 102, 241, 0.2);
+    animation: flotte 5s ease-in-out infinite;
+    position: relative;
+    z-index: 10;
+}
+
+@keyframes flotte {
+    0%, 100% { transform: translateY(0) rotateX(2deg); }
+    50% { transform: translateY(-15px) rotateX(2deg); }
+}
+
+.calculatrice::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #6366f1, #ec4899, #a855f7, #6366f1);
+    border-radius: 30px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.calculatrice:hover::before {
+    opacity: 0.6;
+    animation: brille 2s ease-in-out infinite;
+}
+
+@keyframes brille {
+    0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
+    50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.9); }
+}
+
+.ecran {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+    border-radius: 20px;
+    padding: 30px 25px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 20px rgba(99, 102, 241, 0.1),
+                0 10px 30px rgba(0, 0, 0, 0.5);
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.ecran::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    animation: brille-ecran 3s infinite;
+}
+
+@keyframes brille-ecran {
+    to { left: 200%; }
+}
+
+.operation-precedente {
+    color: rgba(139, 141, 255, 0.7);
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    min-height: 25px;
+    text-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.operation-actuelle {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 300;
+    min-height: 45px;
+    text-shadow: 0 0 25px rgba(99, 102, 241, 0.8);
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.boutons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.btn {
+    border: none;
+    border-radius: 15px;
+    font-size: 1.4rem;
+    padding: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+
+.btn:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+.chiffre {
+    background: linear-gradient(135deg, rgba(30, 30, 50, 0.9), rgba(40, 40, 70, 0.9));
+    color: white;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.chiffre:hover {
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6),
+                0 0 25px rgba(99, 102, 241, 0.3);
+}
+
+.operation {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3));
+    color: white;
+    border: 1px solid rgba(99, 102, 241, 0.5);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+}
+
+.operation:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(139, 92, 246, 0.5));
+    box-shadow: 0 10px 35px rgba(99, 102, 241, 0.5),
+                0 0 30px rgba(99, 102, 241, 0.6);
+}
+
+.egal {
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    color: white;
+    grid-column: span 2;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+}
+
+.egal:hover {
+    background: linear-gradient(135deg, #818cf8, #c084fc);
+    box-shadow: 0 10px 35px rgba(99, 102, 241, 0.7),
+                0 0 50px rgba(99, 102, 241, 0.8);
+}
+
+.effacer {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.3));
+    color: white;
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+}
+
+.effacer:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(220, 38, 38, 0.5));
+    box-shadow: 0 10px 35px rgba(239, 68, 68, 0.5),
+                0 0 30px rgba(239, 68, 68, 0.6);
+}
+
+.supprimer {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(217, 119, 6, 0.3));
+    color: white;
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+}
+
+.supprimer:hover {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.5), rgba(217, 119, 6, 0.5));
+    box-shadow: 0 10px 35px rgba(245, 158, 11, 0.5),
+                0 0 30px rgba(245, 158, 11, 0.6);
+}
+
+@media (max-width: 480px) {
+    .calculatrice {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .ecran {
+        padding: 20px 15px;
+        min-height: 90px;
+    }
+
+    .operation-precedente {
+        font-size: 0.9rem;
+        min-height: 20px;
+    }
+
+    .operation-actuelle {
+        font-size: 2rem;
+        min-height: 35px;
+    }
+
+    .btn {
+        padding: 20px;
+        font-size: 1.2rem;
+    }
+
+    .boutons {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .calculatrice {
+        padding: 15px;
+    }
+
+    .ecran {
+        padding: 15px 12px;
+        min-height: 80px;
+    }
+
+    .operation-actuelle {
+        font-size: 1.7rem;
+    }
+
+    .btn {
+        padding: 18px;
+        font-size: 1.1rem;
+    }
+
+    .boutons {
+        gap: 8px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .calculatrice {
+        max-width: 450px;
+        padding: 35px;
+    }
+
+    .btn {
+        padding: 28px;
+        font-size: 1.5rem;
+    }
+}

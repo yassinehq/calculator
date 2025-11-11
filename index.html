@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Calculatrice Stylée</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="ligne-scan"></div>
+    
+    <div class="calculatrice">
+        <div class="ecran">
+            <div class="operation-precedente" id="operationPrec"></div>
+            <div class="operation-actuelle" id="operationActu">0</div>
+        </div>
+        
+        <div class="boutons">
+            <button class="btn effacer" onclick="effacerTout()">AC</button>
+            <button class="btn supprimer" onclick="supprimerDernier()">DEL</button>
+            <button class="btn operation" onclick="choisirOperation('/')">/</button>
+            <button class="btn operation" onclick="choisirOperation('*')">×</button>
+            
+            <button class="btn chiffre" onclick="ajouterChiffre('7')">7</button>
+            <button class="btn chiffre" onclick="ajouterChiffre('8')">8</button>
+            <button class="btn chiffre" onclick="ajouterChiffre('9')">9</button>
+            <button class="btn operation" onclick="choisirOperation('-')">-</button>
+            
+            <button class="btn chiffre" onclick="ajouterChiffre('4')">4</button>
+            <button class="btn chiffre" onclick="ajouterChiffre('5')">5</button>
+            <button class="btn chiffre" onclick="ajouterChiffre('6')">6</button>
+            <button class="btn operation" onclick="choisirOperation('+')">+</button>
+            
+            <button class="btn chiffre" onclick="ajouterChiffre('1')">1</button>
+            <button class="btn chiffre" onclick="ajouterChiffre('2')">2</button>
+            <button class="btn chiffre" onclick="ajouterChiffre('3')">3</button>
+            <button class="btn egal" onclick="calculer()">=</button>
+            
+            <button class="btn chiffre" onclick="ajouterChiffre('0')">0</button>
+            <button class="btn chiffre" onclick="ajouterChiffre('.')">.</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
